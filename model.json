@@ -1,0 +1,115 @@
+{
+ "materials": {
+  "Fe": {
+   "E": 295000,
+   "nu": 0.3
+  },
+  "spring": {
+   "k": 100
+  }
+ },
+ "nodes": {
+  "1": {
+   "coords": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+   },
+   "dofnum": 3,
+   "dofID": 0,
+   "dof": {
+    "u": 0,
+    "v": 0,
+    "w": 0
+   }
+  },
+  "2": {
+   "coords": {
+    "x": 10,
+    "y": 0,
+    "z": 0
+   },
+   "dofnum": 3,
+   "dofID": 3,
+   "dof": {
+    "u": 0,
+    "v": 0,
+    "w": 0
+   }
+  },
+  "3": {
+   "coords": {
+    "x": 20,
+    "y": 0,
+    "z": 0
+   },
+   "dofnum": 3,
+   "dofID": 6,
+   "dof": {
+    "u": 0,
+    "v": 0,
+    "w": 0
+   }
+  }
+ },
+ "elements": {
+  "1": {
+   "type": "spring",
+   "node": [
+    1,
+    2
+   ],
+   "material": "spring"
+  },
+  "2": {
+   "type": "spring",
+   "node": [
+    2,
+    3
+   ],
+   "material": "spring"
+  }
+ },
+ "loadcases": {
+  "1": {
+   "1": {
+    "type": "force",
+    "nodeid": 2,
+    "localDOFid": [
+     1
+    ],
+    "value": [
+     1000
+    ]
+   },
+   "2": {
+    "type": "displacement",
+    "nodeid": 1,
+    "localDOFid": [
+     1,
+     2,
+     3
+    ],
+    "value": [
+     0,
+     0,
+     0
+    ]
+   },
+   "3": {
+    "type": "displacement",
+    "nodeid": 3,
+    "localDOFid": [
+     1,
+     2,
+     3
+    ],
+    "value": [
+     0,
+     0,
+     0
+    ]
+   }
+  }
+ }
+}
