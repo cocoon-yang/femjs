@@ -6,7 +6,7 @@
 
 var fem = (typeof exports === "undefined")?(function fem() {}):(exports);
 if(typeof global !== "undefined") { global.fem = fem; }
-
+    fem._precision = 2;
     fem._model;
     fem._jsonFileSource ;
 
