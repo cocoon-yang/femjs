@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+<head>
+  <title>网络教学白板</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <style type="text/css">
+    /* Split the screen in half */
+    .split {
+        height: 100%;
+        width: 50%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+    /* Control the left side */
+    .left {
+        left: 0;
+        background-color: white;
+    }
+
+    /* Control the right side */
+    .right {
+        right: 0;
+        background-color: white;
+    }
+
+    /* If you want the content centered horizontally and vertically */
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    /* Style the image inside the centered container, if needed */
+    .centered img {
+        width: 150px;
+        border-radius: 50%;
+    }
+  </style>
+  <title>Marked in the browser</title>
+  <script src="https://cdn.bootcss.com/numeric/1.2.6/numeric.min.js"></script>  
+  <script src="https://combinatronics.com/cocoon-yang/femjs/master/fem-0.1.3.js"></script>    
+  
+  <script language="javascript"> 
+    function transMD() {
+        //alert("fem");
+        document.getElementById("content").innerHTML = "Results <br/>";
+        var input = document.getElementById('memo').value;
+        fem._model = eval("(" + input + ")");
+        fem.assembly();
+        fem.loadcase( 1 );
+        fem.solve();
+        // fem.show();
+        //alert("ok1");        
+        //var result = fem.saveModel();  
+        var result = JSON.stringify(fem._U);
+        //alert("ok 2");  
+        
+
+        self.show( result );        
+        //document.getElementById("content").innerHTML = result; 
+        //MathJax.Hub.Queue(["Typeset",MathJax.Hub, "content"]); 
+    }
+  </script> 
+</head>
+<body>
+    <div class="split left">
+      <div class="centered">
+           <textarea id='memo' onchange= transMD() style="min-height:500px;min-width:300px;" >
+ {
+ "materials": {
+  "Fe": {
+   "E": 295000,
+   "nu": 0.3
+  },
+  "spring": {
+   "k": 100
+  }
+ },
+ "nodes": {
+  "1": {
+   "coords": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+   },
+   "dofnum": 3,
+   "dofID": 0,
+   "dof": {
+    "u": 0,
+    "v": 0,
+    "w": 0
+   }
+  },
+  "2": {
+   "coords": {
+    "x": 10,
+    "y": 0,
+    "z": 0
+   },
+   "dofnum": 3,
+   "dofID": 3,
+   "dof": {
+    "u": 0,
+    "v": 0,
+    "w": 0
+   }
+  },
+  "3": {
+   "coords": {
+    "x": 20,
+    "y": 0,
+    "z": 0
+   },
+   "dofnum": 3,
+   "dofID": 6,
+   "dof": {
+    "u": 0,
+    "v": 0,
+    "w": 0
+   }
+  }
+ },
+ "elements": {
+  "1": {
+   "type": "spring",
+   "node": [
+    1,
+    2
+   ],
+   "material": "spring"
+  },
+  "2": {
+   "type": "spring",
+   "node": [
+    2,
+    3
+   ],
+   "material": "spring"
+  }
+ },
+ "loadcases": {
+  "1": {
+   "1": {
+    "type": "force",
+    "nodeid": 2,
+    "localDOFid": [
+     1
+    ],
+    "value": [
+     1000
+    ]
+   },
+   "2": {
+    "type": "displacement",
+    "nodeid": 1,
+    "localDOFid": [
+     1,
+     2,
+     3
+    ],
+    "value": [
+     0,
+     0,
+     0
+    ]
+   },
+   "3": {
+    "type": "displacement",
+    "nodeid": 3,
+    "localDOFid": [
+     1,
+     2,
+     3
+    ],
+    "value": [
+     0,
+     0,
+     0
+    ]
+   }
+  }
+ }
+}
+            </textarea> 
+       </div>
+    </div>
+              
+    <div class="split right">
+        <div id="content"> 
+            Results
+        </div>
+    </div>
+    <script>
+      var input = document.getElementById('memo').value;
+      fem._model = eval("(" + input + ")");
+        fem.assembly();
+        fem.loadcase( 1 );
+        fem.solve(); 
+        //fem.showModel(); 
+        // var result = JSON.stringify(fem._model);        
+        // document.getElementById("content").innerHTML = result;
+    </script>    
+</body>
+</html>
