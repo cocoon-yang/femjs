@@ -1,11 +1,28 @@
 # femjs
-A simple fem solver in pure JavaScript.
+
+A simple FEM (Finite Element Method) solver in pure JavaScript. 
+
 
 # install 
 
 ```
 npm install femjs
 ```
+
+
+# Software Structure 
+The femjs contains three packages: 
+a model, a solver and a library of elements. The model package  maintains the data of FEM model which is stored in a JSON object. numeric is used as the calculator to deal with the linear algebric computations. The algorithms of various elements are packaged into different fem-element modules. femjs would load the modules when it meet new element data. 
+
+ - FEM model 
+
+ - FEM solver  
+
+ - FEM elements
+
+   - bar element
+   - spring element 
+   - ...
 
 
 # Example
@@ -28,7 +45,7 @@ model.saveModel();
 
 ## FEM model file
 
-model.json contains the fem model of a simple truss structure.  The model consists of four nodes and four elements, bar 1, bar 2, bar 3 and bar 4. The topology of the structure and element properties are described in “elements" section. The single force loads and displacement constraints can be found in "loadcases". 
+model.json is a text file which contains information of the FEM model. The data are stored in JSON formate. The details of an example model.json are shown as following.   
 ```
 {
  "materials": {
@@ -212,3 +229,5 @@ model.json contains the fem model of a simple truss structure.  The model consis
  }
 }
 ```
+
+The FEM model consists of four nodes and four bar elements: bar 1, bar 2, bar 3 and bar 4. The topology of the structure and element properties are described in “elements" section. The single force loads and displacement constraints can be found in "loadcases" section. 
